@@ -65,7 +65,11 @@ struct VSection<Content: View, Header: View, Footer: View>: View {
 	}
 
 	var body: some View {
-		Section { content } header: { header } footer: { footer }
+		Section { content } header: {
+			header.vertexTekst(Vertex.Tekst.label).foregroundStyle(Vertex.Kleur.tekstGedempt)
+		} footer: {
+			footer.vertexTekst(Vertex.Tekst.klein).foregroundStyle(Vertex.Kleur.tekstGedempt)
+		}
 			.listRowBackground(Vertex.Kleur.hoogte1Vlak)
 			.listRowSeparatorTint(Vertex.Kleur.lijnStandaard)
 	}
@@ -78,7 +82,7 @@ extension VSection where Footer == EmptyView {
 	init(@ViewBuilder content: () -> Content, @ViewBuilder header: () -> Header) { self.init(content: content, header: header, footer: { EmptyView() }) }
 }
 extension VSection where Header == Text, Footer == EmptyView {
-	init(_ titel: String, @ViewBuilder content: () -> Content) { self.init(content: content, header: { Text(titel) }, footer: { EmptyView() }) }
+	init(_ titel: String, @ViewBuilder content: () -> Content) { self.init(content: content, header: { Text(titel.uppercased()) }, footer: { EmptyView() }) }
 }
 extension VSection where Header == EmptyView {
 	init(@ViewBuilder content: () -> Content, @ViewBuilder footer: () -> Footer) { self.init(content: content, header: { EmptyView() }, footer: footer) }
@@ -86,12 +90,12 @@ extension VSection where Header == EmptyView {
 
 extension View {
 	/// Lijst of formulier op de Vertex-pagina: eigen achtergrond met gloed, kleur en lettertype.
-	func vertexLijst() -> some View {
+	func vertexLijst(gloed: Bool = true) -> some View {
 		scrollContentBackground(.hidden)
 			.font(.vBody)
 			.foregroundStyle(Vertex.Kleur.tekstHoofd)
 			.tint(Vertex.Kleur.accentStandaard)
-			.vertexPagina()
+			.vertexPagina(gloed: gloed)
 	}
 
 	/// Tekststijl met regelhoogte, zoals in Figma.
@@ -100,12 +104,14 @@ extension View {
 	}
 
 	/// Pagina-achtergrond met de gloed bovenaan, zoals alle schermen in het ontwerp.
-	func vertexPagina() -> some View {
+	func vertexPagina(gloed: Bool = true) -> some View {
 		background(alignment: .top) {
 			ZStack(alignment: .top) {
 				Vertex.Kleur.achtergrondPagina
-				LinearGradient(colors: [Vertex.Kleur.gloed, Vertex.Kleur.gloed.opacity(0)], startPoint: .top, endPoint: .bottom)
-					.frame(height: 360)
+				if gloed {
+					LinearGradient(colors: [Vertex.Kleur.gloed, Vertex.Kleur.gloed.opacity(0)], startPoint: .top, endPoint: .bottom)
+						.frame(height: 360)
+				}
 			}
 			.ignoresSafeArea()
 		}
@@ -323,14 +329,14 @@ struct VertexSegmentbalk<Waarde: Hashable>: View {
 						.lineLimit(1)
 						.minimumScaleFactor(0.8)
 						.frame(maxWidth: .infinity, minHeight: 36)
-						.background(actief ? Vertex.Kleur.hoogte2Vlak : .clear, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+						.background(actief ? Vertex.Kleur.hoogte2Vlak : .clear, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
 						.shadow(color: actief ? Vertex.Kleur.schaduw : .clear, radius: 3, y: 1)
 				}
 				.buttonStyle(.plain)
 			}
 		}
 		.padding(4)
-		.background(Vertex.Kleur.achtergrondVlak.opacity(0.7), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+		.background(Vertex.Kleur.achtergrondVlak, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
 	}
 }
 
@@ -344,5 +350,48 @@ struct VertexPrimaireKnop: ButtonStyle {
 			.background(Vertex.verloopAccent, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
 			.vertexAccentSchaduw()
 			.opacity(configuration.isPressed ? 0.85 : 1)
+	}
+}
+
+/// Secundaire knop: zachte accentkleur zonder schaduw.
+struct VertexSecundaireKnop: ButtonStyle {
+	func makeBody(configuration: Configuration) -> some View {
+		configuration.label
+			.vertexTekst(Vertex.Tekst.subkop)
+			.foregroundStyle(Vertex.Kleur.accentStandaard)
+			.frame(maxWidth: .infinity, minHeight: 52)
+			.background(Vertex.Kleur.accentZacht, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+			.opacity(configuration.isPressed ? 0.8 : 1)
+	}
+}
+
+/// Invoerveld met label erboven en een gevuld vlak.
+struct VertexVeld<Inhoud: View>: View {
+	let label: String
+	@ViewBuilder let inhoud: Inhoud
+
+	var body: some View {
+		VStack(alignment: .leading, spacing: 6) {
+			Text(label).vertexTekst(Vertex.Tekst.klein).foregroundStyle(Vertex.Kleur.tekstGedempt)
+			inhoud
+				.vertexTekst(Vertex.Tekst.body)
+				.foregroundStyle(Vertex.Kleur.tekstHoofd)
+				.padding(.horizontal, 14)
+				.frame(minHeight: 46)
+				.background(Vertex.Kleur.achtergrondKaart2, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+		}
+	}
+}
+
+/// Het app-icoon als logo: afgerond vlak met verloop en de dollar.
+struct VertexLogo: View {
+	var maat: CGFloat = 72
+
+	var body: some View {
+		Image("Logo")
+			.resizable()
+			.frame(width: maat, height: maat)
+			.clipShape(RoundedRectangle(cornerRadius: maat * 0.26, style: .continuous))
+			.vertexAccentSchaduw()
 	}
 }
