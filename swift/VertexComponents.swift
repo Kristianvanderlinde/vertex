@@ -54,50 +54,7 @@ extension Font {
 	static let vHeadline = Font.vertex(Vertex.Tekst.subkop)
 }
 
-/// Sectie in een lijst of formulier met een Vertex-kaartvlak als rijachtergrond.
-struct VSection<Content: View, Header: View, Footer: View>: View {
-	let content: Content
-	let header: Header
-	let footer: Footer
-
-	init(@ViewBuilder content: () -> Content, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
-		self.content = content(); self.header = header(); self.footer = footer()
-	}
-
-	var body: some View {
-		Section { content } header: {
-			header.vertexTekst(Vertex.Tekst.label).foregroundStyle(Vertex.Kleur.tekstGedempt)
-		} footer: {
-			footer.vertexTekst(Vertex.Tekst.klein).foregroundStyle(Vertex.Kleur.tekstGedempt)
-		}
-			.listRowBackground(Vertex.Kleur.hoogte1Vlak)
-			.listRowSeparatorTint(Vertex.Kleur.lijnStandaard)
-	}
-}
-
-extension VSection where Header == EmptyView, Footer == EmptyView {
-	init(@ViewBuilder content: () -> Content) { self.init(content: content, header: { EmptyView() }, footer: { EmptyView() }) }
-}
-extension VSection where Footer == EmptyView {
-	init(@ViewBuilder content: () -> Content, @ViewBuilder header: () -> Header) { self.init(content: content, header: header, footer: { EmptyView() }) }
-}
-extension VSection where Header == Text, Footer == EmptyView {
-	init(_ titel: String, @ViewBuilder content: () -> Content) { self.init(content: content, header: { Text(titel.uppercased()) }, footer: { EmptyView() }) }
-}
-extension VSection where Header == EmptyView {
-	init(@ViewBuilder content: () -> Content, @ViewBuilder footer: () -> Footer) { self.init(content: content, header: { EmptyView() }, footer: footer) }
-}
-
 extension View {
-	/// Lijst of formulier op de Vertex-pagina: eigen achtergrond met gloed, kleur en lettertype.
-	func vertexLijst(gloed: Bool = true) -> some View {
-		scrollContentBackground(.hidden)
-			.font(.vBody)
-			.foregroundStyle(Vertex.Kleur.tekstHoofd)
-			.tint(Vertex.Kleur.accentStandaard)
-			.vertexPagina(gloed: gloed)
-	}
-
 	/// Tekststijl met regelhoogte, zoals in Figma.
 	func vertexTekst(_ s: Vertex.Stijl) -> some View {
 		font(.vertex(s)).lineSpacing(max(0, s.regelhoogte - s.grootte * 1.26))
@@ -219,7 +176,7 @@ struct VertexTegel: View {
 			}
 		}
 		.frame(width: maat, height: maat)
-		.background(effen ? hue.effen : AnyShapeStyle(hue.zacht), in: RoundedRectangle(cornerRadius: maat * 0.36, style: .continuous))
+		.background(effen ? hue.effen : AnyShapeStyle(hue.zacht), in: RoundedRectangle(cornerRadius: maat <= 40 ? 12 : maat * 0.36, style: .continuous))
 	}
 }
 
