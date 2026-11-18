@@ -24,7 +24,7 @@
 {#snippet paneel(thema: 'licht' | 'donker')}
 	<div class="paneel" data-thema={thema}>
 		<div class="gloed"></div>
-		<h1 class="tekst-titel-m">Ontwerpsysteem · {thema}</h1>
+		<h1 class="tekst-titel-m">Vertex · {thema}</h1>
 
 		<h2 class="tekst-kop">Componenten</h2>
 		<div class="blok">
