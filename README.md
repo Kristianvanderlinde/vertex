@@ -7,7 +7,7 @@ tokens/tokens.json      de bron: primitieven, semantische kleuren (licht/donker)
 scripts/maak-tokens.mjs maakt css/tokens.css (npm run tokens)
 css/tokens.css          CSS-variabelen, klaar om te importeren
 fonts/                  Plus Jakarta Sans (variabel)
-web/                    Svelte 5-componenten (Knop, Icoonknop, Chip, Segmentbalk, Schakelaar, Zoekveld)
+web/                    Svelte 5-componenten (Knop, Icoonknop, Terugknop, Chip, Segmentbalk, Schakelaar, Zoekveld)
 voorbeeld/              voorbeeldpagina (npm run voorbeeld → http://localhost:5191)
 ```
 

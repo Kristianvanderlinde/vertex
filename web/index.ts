@@ -4,3 +4,4 @@ export { default as Chip } from './Chip.svelte';
 export { default as Segmentbalk } from './Segmentbalk.svelte';
 export { default as Schakelaar } from './Schakelaar.svelte';
 export { default as Zoekveld } from './Zoekveld.svelte';
+export { default as Terugknop } from './Terugknop.svelte';

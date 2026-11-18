@@ -1,6 +1,6 @@
 <script lang="ts">
 	import tokens from '../../tokens/tokens.json';
-	import { Knop, Icoonknop, Chip, Segmentbalk, Schakelaar, Zoekveld } from '../../web';
+	import { Knop, Icoonknop, Chip, Segmentbalk, Schakelaar, Zoekveld, Terugknop } from '../../web';
 
 	const groepen = ['achtergrond', 'hoogte', 'tekst', 'lijn', 'accent', 'status', 'categorie'];
 	const semantisch = Object.keys(tokens.semantisch);
@@ -42,6 +42,8 @@
 				<Knop variant="primair" maat="s">Klein</Knop>
 				<Knop variant="secundair" maat="s">Klein</Knop>
 			</div>
+			<h3 class="tekst-body-vet gedempt">Terugknop</h3>
+			<div class="rij"><Terugknop href="#">Instellingen</Terugknop></div>
 			<h3 class="tekst-body-vet gedempt">Icoonknop</h3>
 			<div class="rij">
 				<Icoonknop aria-label="Nieuw">{@render plus()}</Icoonknop>
