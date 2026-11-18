@@ -6,8 +6,32 @@ import SwiftUI
 extension Vertex {
 	/// Registreert Plus Jakarta Sans (variabel lettertype uit de bundel). Eén keer bij het starten van de app.
 	static func registreerLettertype() {
-		guard let url = Bundle.main.url(forResource: "PlusJakartaSans", withExtension: "ttf") else { return }
-		CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+		if let url = Bundle.main.url(forResource: "PlusJakartaSans", withExtension: "ttf") {
+			CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+		}
+		stelNavigatiebalkIn()
+	}
+
+	/// Navigatiebalk in Vertex-stijl: grote titel in Plus Jakarta Sans, doorzichtig tot er gescrold wordt, accentkleur voor knoppen.
+	static func stelNavigatiebalkIn() {
+		// Variabel lettertype: het gewicht staat op de as 'wght' (0x77676874).
+		func font(_ size: CGFloat, _ gewicht: CGFloat) -> UIFont {
+			let basis = UIFont(name: "Plus Jakarta Sans", size: size) ?? .systemFont(ofSize: size, weight: .bold)
+			let variatie = UIFontDescriptor.AttributeName(rawValue: kCTFontVariationAttribute as String)
+			return UIFont(descriptor: basis.fontDescriptor.addingAttributes([variatie: [2003265652: gewicht]]), size: size)
+		}
+		let tekst = UIColor { $0.userInterfaceStyle == .dark ? UIColor(hex: "#f4f0ef") : UIColor(hex: "#231f2b") }
+		let scroll = UINavigationBarAppearance()
+		scroll.configureWithDefaultBackground()
+		scroll.titleTextAttributes = [.font: font(17, 600), .foregroundColor: tekst]
+		scroll.largeTitleTextAttributes = [.font: font(34, 700), .foregroundColor: tekst]
+		let rand = UINavigationBarAppearance()
+		rand.configureWithTransparentBackground()
+		rand.titleTextAttributes = scroll.titleTextAttributes
+		rand.largeTitleTextAttributes = scroll.largeTitleTextAttributes
+		UINavigationBar.appearance().standardAppearance = scroll
+		UINavigationBar.appearance().compactAppearance = scroll
+		UINavigationBar.appearance().scrollEdgeAppearance = rand
 	}
 }
 
@@ -19,7 +43,57 @@ extension Font {
 	}
 }
 
+extension Font {
+	/// Systeemstijlen vervangen door Vertex-tekst, zodat bestaande schermen meteen Plus Jakarta Sans krijgen.
+	static let vBody = Font.vertex(Vertex.Tekst.body)
+	static let vSub = Font.vertex(Vertex.Tekst.body)
+	static let vKlein = Font.vertex(Vertex.Tekst.klein)
+	static let vCaption = Font.vertex(Vertex.Stijl(grootte: 12, regelhoogte: 16, gewicht: 400))
+	static let vCaption2 = Font.vertex(Vertex.Stijl(grootte: 11, regelhoogte: 14, gewicht: 400))
+	static let vTitle3 = Font.vertex(Vertex.Tekst.kop)
+	static let vHeadline = Font.vertex(Vertex.Tekst.subkop)
+}
+
+/// Sectie in een lijst of formulier met een Vertex-kaartvlak als rijachtergrond.
+struct VSection<Content: View, Header: View, Footer: View>: View {
+	let content: Content
+	let header: Header
+	let footer: Footer
+
+	init(@ViewBuilder content: () -> Content, @ViewBuilder header: () -> Header, @ViewBuilder footer: () -> Footer) {
+		self.content = content(); self.header = header(); self.footer = footer()
+	}
+
+	var body: some View {
+		Section { content } header: { header } footer: { footer }
+			.listRowBackground(Vertex.Kleur.hoogte1Vlak)
+			.listRowSeparatorTint(Vertex.Kleur.lijnStandaard)
+	}
+}
+
+extension VSection where Header == EmptyView, Footer == EmptyView {
+	init(@ViewBuilder content: () -> Content) { self.init(content: content, header: { EmptyView() }, footer: { EmptyView() }) }
+}
+extension VSection where Footer == EmptyView {
+	init(@ViewBuilder content: () -> Content, @ViewBuilder header: () -> Header) { self.init(content: content, header: header, footer: { EmptyView() }) }
+}
+extension VSection where Header == Text, Footer == EmptyView {
+	init(_ titel: String, @ViewBuilder content: () -> Content) { self.init(content: content, header: { Text(titel) }, footer: { EmptyView() }) }
+}
+extension VSection where Header == EmptyView {
+	init(@ViewBuilder content: () -> Content, @ViewBuilder footer: () -> Footer) { self.init(content: content, header: { EmptyView() }, footer: footer) }
+}
+
 extension View {
+	/// Lijst of formulier op de Vertex-pagina: eigen achtergrond met gloed, kleur en lettertype.
+	func vertexLijst() -> some View {
+		scrollContentBackground(.hidden)
+			.font(.vBody)
+			.foregroundStyle(Vertex.Kleur.tekstHoofd)
+			.tint(Vertex.Kleur.accentStandaard)
+			.vertexPagina()
+	}
+
 	/// Tekststijl met regelhoogte, zoals in Figma.
 	func vertexTekst(_ s: Vertex.Stijl) -> some View {
 		font(.vertex(s)).lineSpacing(max(0, s.regelhoogte - s.grootte * 1.26))
