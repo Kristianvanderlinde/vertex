@@ -1,0 +1,254 @@
+/* Gemaakt met scripts/maak-tokens.mjs uit tokens.json. Niet met de hand aanpassen. */
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	src: url('../fonts/PlusJakartaSans.ttf') format('truetype');
+	font-weight: 200 800;
+	font-display: swap;
+}
+
+/* Primitieven: het ruwe palet, zonder betekenis. */
+:root {
+	--neutraal-0: #ffffff;
+	--neutraal-50: #f4f0ef;
+	--neutraal-100: #f5f1ec;
+	--neutraal-150: #ece5dd;
+	--neutraal-200: #e7e0d8;
+	--neutraal-300: #ada7b4;
+	--neutraal-350: #ada6a8;
+	--neutraal-550: #787174;
+	--neutraal-600: #6f6878;
+	--neutraal-650: #575254;
+	--neutraal-750: #413c3e;
+	--neutraal-800: #3f3b3c;
+	--neutraal-850: #373334;
+	--neutraal-900: #2c292b;
+	--neutraal-950: #231f2b;
+	--neutraal-990: #1e1c1d;
+	--paars-50: #eee9fc;
+	--paars-150: #b9a9ff;
+	--paars-400: #6a55dc;
+	--paars-750: #373058;
+	--groen-100: #e4f3e8;
+	--groen-450: #52d07f;
+	--groen-650: #248a3d;
+	--groen-850: #243329;
+	--oranje-50: #fff1de;
+	--oranje-300: #ffb45e;
+	--oranje-650: #b25000;
+	--oranje-850: #3c2e1b;
+	--rood-50: #ffe6e8;
+	--rood-250: #ff8076;
+	--rood-600: #d70015;
+	--rood-800: #3d2324;
+	--goud-50: #fff3d6;
+	--goud-300: #ffc85c;
+	--goud-500: #f2b33d;
+	--goud-700: #8a5a00;
+	--goud-850: #3f321a;
+	--koraal-50: #ffe9e4;
+	--koraal-300: #ff8a78;
+	--koraal-500: #e8604c;
+	--koraal-700: #c4432f;
+	--koraal-850: #3f2623;
+	--mint-50: #ddf4ec;
+	--mint-300: #4fd1a5;
+	--mint-500: #1f9d78;
+	--mint-700: #167a5c;
+	--mint-850: #1f3a31;
+	--lucht-50: #e1eefc;
+	--lucht-300: #6db3ff;
+	--lucht-500: #2f7fd8;
+	--lucht-700: #1f62b5;
+	--lucht-850: #1f3047;
+}
+
+/* Vaste waarden. */
+:root {
+	--ruimte-1: 4px;
+	--ruimte-2: 8px;
+	--ruimte-3: 12px;
+	--ruimte-4: 16px;
+	--ruimte-5: 20px;
+	--ruimte-6: 24px;
+	--ruimte-8: 32px;
+	--ruimte-10: 40px;
+	--ruimte-12: 48px;
+	--vorm-sm: 8px;
+	--vorm-md: 12px;
+	--vorm-lg: 16px;
+	--vorm-xl: 24px;
+	--vorm-xxl: 28px;
+	--vorm-pill: 999px;
+	--schaduw-hoogte-1: 0 2px 12px 0 var(--schaduw-kleur);
+	--schaduw-hoogte-2: 0 4px 14px -2px var(--schaduw-kleur);
+	--schaduw-hoogte-3: 0 8px 28px -6px var(--schaduw-kleur);
+	--schaduw-hoogte-4: 0 4px 16px -4px var(--schaduw-kleur), 0 16px 48px -12px var(--schaduw-kleur);
+	--schaduw-accent: 0 6px 16px -6px rgb(107 84 219 / 0.32);
+	--verloop-accent: linear-gradient(150deg, #6a55dc 0%, #5a48c8 100%);
+	--tekst-familie: 'Plus Jakarta Sans', system-ui, sans-serif;
+	--verloop-gloed: linear-gradient(180deg, #e0d6ff 0%, rgb(224 214 255 / 0) 100%);
+}
+
+/* Semantisch: licht. */
+:root,
+[data-thema='licht'] {
+	--achtergrond-pagina: var(--neutraal-100);
+	--hoogte-1-vlak: var(--neutraal-0);
+	--hoogte-2-vlak: var(--neutraal-0);
+	--hoogte-3-vlak: var(--neutraal-0);
+	--hoogte-4-vlak: var(--neutraal-0);
+	--hoogte-1-rand: var(--neutraal-200);
+	--hoogte-2-rand: var(--neutraal-200);
+	--hoogte-3-rand: var(--neutraal-200);
+	--hoogte-4-rand: var(--neutraal-200);
+	--achtergrond-kaart-2: var(--neutraal-100);
+	--achtergrond-vlak: var(--neutraal-150);
+	--achtergrond-spoor: var(--neutraal-150);
+	--tekst-hoofd: var(--neutraal-950);
+	--tekst-gedempt: var(--neutraal-600);
+	--tekst-vaag: var(--neutraal-300);
+	--tekst-op-accent: var(--neutraal-0);
+	--lijn-standaard: var(--neutraal-200);
+	--accent-standaard: var(--paars-400);
+	--accent-vlak: var(--paars-400);
+	--accent-zacht: var(--paars-50);
+	--status-positief: var(--groen-650);
+	--status-positief-zacht: var(--groen-100);
+	--status-waarschuwing: var(--oranje-650);
+	--status-waarschuwing-zacht: var(--oranje-50);
+	--status-negatief: var(--rood-600);
+	--status-negatief-zacht: var(--rood-50);
+	--categorie-zon: var(--goud-500);
+	--categorie-zon-zacht: var(--goud-50);
+	--categorie-zon-tekst: var(--goud-700);
+	--categorie-koraal: var(--koraal-500);
+	--categorie-koraal-zacht: var(--koraal-50);
+	--categorie-koraal-tekst: var(--koraal-700);
+	--categorie-mint: var(--mint-500);
+	--categorie-mint-zacht: var(--mint-50);
+	--categorie-mint-tekst: var(--mint-700);
+	--categorie-lucht: var(--lucht-500);
+	--categorie-lucht-zacht: var(--lucht-50);
+	--categorie-lucht-tekst: var(--lucht-700);
+	--schaduw-kleur: rgb(36 26 51 / 0.10);
+	--verloop-gloed: linear-gradient(180deg, #e0d6ff 0%, rgb(224 214 255 / 0) 100%);
+	color-scheme: light;
+}
+
+/* Semantisch: donker, volgt het systeem tenzij licht geforceerd is. */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-thema='licht']) {
+		--achtergrond-pagina: var(--neutraal-990);
+		--hoogte-1-vlak: var(--neutraal-900);
+		--hoogte-2-vlak: var(--neutraal-850);
+		--hoogte-3-vlak: var(--neutraal-850);
+		--hoogte-4-vlak: var(--neutraal-800);
+		--hoogte-1-rand: var(--neutraal-800);
+		--hoogte-2-rand: var(--neutraal-750);
+		--hoogte-3-rand: var(--neutraal-750);
+		--hoogte-4-rand: var(--neutraal-650);
+		--achtergrond-kaart-2: var(--neutraal-850);
+		--achtergrond-vlak: var(--neutraal-750);
+		--achtergrond-spoor: var(--neutraal-990);
+		--tekst-hoofd: var(--neutraal-50);
+		--tekst-gedempt: var(--neutraal-350);
+		--tekst-vaag: var(--neutraal-550);
+		--tekst-op-accent: var(--neutraal-0);
+		--lijn-standaard: var(--neutraal-800);
+		--accent-standaard: var(--paars-150);
+		--accent-vlak: var(--paars-400);
+		--accent-zacht: var(--paars-750);
+		--status-positief: var(--groen-450);
+		--status-positief-zacht: var(--groen-850);
+		--status-waarschuwing: var(--oranje-300);
+		--status-waarschuwing-zacht: var(--oranje-850);
+		--status-negatief: var(--rood-250);
+		--status-negatief-zacht: var(--rood-800);
+		--categorie-zon: var(--goud-300);
+		--categorie-zon-zacht: var(--goud-850);
+		--categorie-zon-tekst: var(--goud-300);
+		--categorie-koraal: var(--koraal-300);
+		--categorie-koraal-zacht: var(--koraal-850);
+		--categorie-koraal-tekst: var(--koraal-300);
+		--categorie-mint: var(--mint-300);
+		--categorie-mint-zacht: var(--mint-850);
+		--categorie-mint-tekst: var(--mint-300);
+		--categorie-lucht: var(--lucht-300);
+		--categorie-lucht-zacht: var(--lucht-850);
+		--categorie-lucht-tekst: var(--lucht-300);
+		--schaduw-kleur: rgb(0 0 0 / 0.4);
+		--verloop-gloed: linear-gradient(180deg, rgb(94 73 208 / 0.42) 0%, rgb(94 73 208 / 0) 100%);
+		color-scheme: dark;
+	}
+}
+
+[data-thema='donker'] {
+	--achtergrond-pagina: var(--neutraal-990);
+	--hoogte-1-vlak: var(--neutraal-900);
+	--hoogte-2-vlak: var(--neutraal-850);
+	--hoogte-3-vlak: var(--neutraal-850);
+	--hoogte-4-vlak: var(--neutraal-800);
+	--hoogte-1-rand: var(--neutraal-800);
+	--hoogte-2-rand: var(--neutraal-750);
+	--hoogte-3-rand: var(--neutraal-750);
+	--hoogte-4-rand: var(--neutraal-650);
+	--achtergrond-kaart-2: var(--neutraal-850);
+	--achtergrond-vlak: var(--neutraal-750);
+	--achtergrond-spoor: var(--neutraal-990);
+	--tekst-hoofd: var(--neutraal-50);
+	--tekst-gedempt: var(--neutraal-350);
+	--tekst-vaag: var(--neutraal-550);
+	--tekst-op-accent: var(--neutraal-0);
+	--lijn-standaard: var(--neutraal-800);
+	--accent-standaard: var(--paars-150);
+	--accent-vlak: var(--paars-400);
+	--accent-zacht: var(--paars-750);
+	--status-positief: var(--groen-450);
+	--status-positief-zacht: var(--groen-850);
+	--status-waarschuwing: var(--oranje-300);
+	--status-waarschuwing-zacht: var(--oranje-850);
+	--status-negatief: var(--rood-250);
+	--status-negatief-zacht: var(--rood-800);
+	--categorie-zon: var(--goud-300);
+	--categorie-zon-zacht: var(--goud-850);
+	--categorie-zon-tekst: var(--goud-300);
+	--categorie-koraal: var(--koraal-300);
+	--categorie-koraal-zacht: var(--koraal-850);
+	--categorie-koraal-tekst: var(--koraal-300);
+	--categorie-mint: var(--mint-300);
+	--categorie-mint-zacht: var(--mint-850);
+	--categorie-mint-tekst: var(--mint-300);
+	--categorie-lucht: var(--lucht-300);
+	--categorie-lucht-zacht: var(--lucht-850);
+	--categorie-lucht-tekst: var(--lucht-300);
+	--schaduw-kleur: rgb(0 0 0 / 0.4);
+	--verloop-gloed: linear-gradient(180deg, rgb(94 73 208 / 0.42) 0%, rgb(94 73 208 / 0) 100%);
+	color-scheme: dark;
+}
+
+/* Tekststijlen. */
+.tekst-titel-l {
+	font: 700 34px/40px var(--tekst-familie);
+}
+.tekst-titel-m {
+	font: 700 28px/34px var(--tekst-familie);
+}
+.tekst-kop {
+	font: 700 22px/28px var(--tekst-familie);
+}
+.tekst-subkop {
+	font: 600 17px/24px var(--tekst-familie);
+}
+.tekst-body {
+	font: 400 15px/22px var(--tekst-familie);
+}
+.tekst-body-vet {
+	font: 600 15px/22px var(--tekst-familie);
+}
+.tekst-klein {
+	font: 400 13px/18px var(--tekst-familie);
+}
+.tekst-label {
+	font: 600 12px/16px var(--tekst-familie);
+}

@@ -1,0 +1,27 @@
+{
+	"name": "ontwerpsysteem",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Tokens en componenten voor mijn apps (Stax, Huis, …). Eén bron voor kleur, tekst, hoogte en vorm.",
+	"type": "module",
+	"svelte": "./web/index.ts",
+	"exports": {
+		"./tokens.css": "./css/tokens.css",
+		"./tokens.json": "./tokens/tokens.json",
+		"./web": { "svelte": "./web/index.ts", "default": "./web/index.ts" },
+		"./fonts/*": "./fonts/*"
+	},
+	"scripts": {
+		"tokens": "node scripts/maak-tokens.mjs",
+		"voorbeeld": "vite --config voorbeeld/vite.config.ts voorbeeld --port 5191"
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "6.2.4",
+		"svelte": "5.57.3",
+		"typescript": "5.9.3",
+		"vite": "7.3.7"
+	}
+}
