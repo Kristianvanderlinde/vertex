@@ -41,3 +41,6 @@ Met Vite moet de map van het pakket bereikbaar zijn: `server: { fs: { allow: ['.
 ## Nog te doen
 
 SwiftUI-kant (kleuren, vormen en schaduwen als Swift uit `tokens.json`, componenten als views), meer componenten (Kaart, Banner, Rij, Tegel, Zijbalk, Tabbalk, Invoerveld), en publiceren zodat een Docker-build het pakket kan ophalen.
+
+## SwiftUI
+`npm run tokens` maakt ook `swift/VertexTokens.swift` (kleuren licht/donker, ruimte, vorm, tekststijlen). `swift/VertexComponents.swift` bevat lettertype-registratie, kaart, tegel, balk, chip, segmentbalk, icoonknop en primaire knop. Een app kopieert `swift/*.swift` en `fonts/PlusJakartaSans.ttf` naar zijn eigen doelmap (Stax: `ios/Stax/Vertex/`) en roept `Vertex.registreerLettertype()` aan bij het starten.
